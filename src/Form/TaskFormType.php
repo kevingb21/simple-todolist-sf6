@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Task;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,11 +15,13 @@ class TaskFormType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('deleted')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('status')
-        ;
+            ->add('status', ChoiceType::class, [
+                'choices' => [
+                    'New' => 'new',
+                    'In Progress' => 'in_progress',
+                    'Done' => 'done',
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
